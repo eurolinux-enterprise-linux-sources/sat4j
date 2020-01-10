@@ -21,7 +21,6 @@ package org.sat4j.pb.tools;
 
 import java.math.BigInteger;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -52,16 +51,39 @@ import org.sat4j.tools.GateTranslator;
  */
 public class DependencyHelper<T, C> {
 
-	public final INegator<T> NO_NEGATION = new INegator<T>() {
+	public final INegator NO_NEGATION = new INegator() {
 
-		public boolean isNegated(T thing) {
+		public boolean isNegated(Object thing) {
 			return false;
 		}
 
-		public T unNegate(T thing) {
+		public Object unNegate(Object thing) {
 			return thing;
 		}
 	};
+
+	public static final INegator BASIC_NEGATION = new INegator() {
+
+		public boolean isNegated(Object thing) {
+			return (thing instanceof Negation);
+		}
+
+		public Object unNegate(Object thing) {
+			return ((Negation) thing).getThing();
+		}
+	};
+
+	private static final class Negation {
+		private final Object thing;
+
+		Negation(Object thing) {
+			this.thing = thing;
+		}
+
+		Object getThing() {
+			return thing;
+		}
+	}
 
 	/**
 	 * 
@@ -75,13 +97,14 @@ public class DependencyHelper<T, C> {
 	private final XplainPB xplain;
 	private final GateTranslator gator;
 	final IPBSolver solver;
-	private INegator<T> negator = NO_NEGATION;
+	private INegator negator = BASIC_NEGATION;
 
 	private ObjectiveFunction objFunction;
 	private IVecInt objLiterals;
 	private IVec<BigInteger> objCoefs;
 
 	public boolean explanationEnabled = true;
+	public boolean canonicalOptFunction = true;
 
 	/**
 	 * 
@@ -92,7 +115,38 @@ public class DependencyHelper<T, C> {
 		this(solver, true);
 	}
 
+	/**
+	 * 
+	 * @param solver
+	 *            the solver to be used to solve the problem.
+	 * @param explanationEnabled
+	 *            if true, will add one new variable per constraint to allow the
+	 *            solver to compute an explanation in case of failure. Default
+	 *            is true. Usually, this is set to false when one wants to check
+	 *            the encoding produced by the helper.
+	 */
 	public DependencyHelper(IPBSolver solver, boolean explanationEnabled) {
+		this(solver, explanationEnabled, true);
+	}
+
+	/**
+	 * 
+	 * @param solver
+	 *            the solver to be used to solve the problem.
+	 * @param explanationEnabled
+	 *            if true, will add one new variable per constraint to allow the
+	 *            solver to compute an explanation in case of failure. Default
+	 *            is true. Usually, this is set to false when one wants to check
+	 *            the encoding produced by the helper.
+	 * @param canonicalOptFunctionEnabled
+	 *            when set to true, the objective function sum up all the
+	 *            coefficients for a given literal. The default is true. It is
+	 *            useful to set it to false when checking the encoding produced
+	 *            by the helper.
+	 * @since 2.2
+	 */
+	public DependencyHelper(IPBSolver solver, boolean explanationEnabled,
+			boolean canonicalOptFunctionEnabled) {
 		if (explanationEnabled) {
 			this.xplain = new XplainPB(solver);
 			this.solver = this.xplain;
@@ -101,9 +155,10 @@ public class DependencyHelper<T, C> {
 			this.solver = solver;
 		}
 		this.gator = new GateTranslator(this.solver);
+		canonicalOptFunction = canonicalOptFunctionEnabled;
 	}
 
-	public void setNegator(INegator<T> negator) {
+	public void setNegator(INegator negator) {
 		this.negator = negator;
 	}
 
@@ -115,18 +170,38 @@ public class DependencyHelper<T, C> {
 	 * @return the dimacs variable (an integer) representing that domain object.
 	 */
 	int getIntValue(T thing) {
+		return getIntValue(thing, true);
+	}
+
+	/**
+	 * Translate a domain object into a dimacs variable.
+	 * 
+	 * @param thing
+	 *            a domain object
+	 * @param create
+	 *            to allow or not the solver to create a new id if the object in
+	 *            unknown. If set to false, the method will throw an
+	 *            IllegalArgumentException if the object is unknown.
+	 * @return the dimacs variable (an integer) representing that domain object.
+	 */
+	int getIntValue(T thing, boolean create) {
 		T myThing;
 		boolean negated = negator.isNegated(thing);
 		if (negated) {
-			myThing = negator.unNegate(thing);
+			myThing = (T) negator.unNegate(thing);
 		} else {
 			myThing = thing;
 		}
 		Integer intValue = mapToDimacs.get(myThing);
 		if (intValue == null) {
-			intValue = solver.nextFreeVarId(true);
-			mapToDomain.put(intValue, myThing);
-			mapToDimacs.put(myThing, intValue);
+			if (create) {
+				intValue = solver.nextFreeVarId(true);
+				mapToDomain.put(intValue, myThing);
+				mapToDimacs.put(myThing, intValue);
+			} else {
+				throw new IllegalArgumentException("" + myThing
+						+ " is unknown in the solver!");
+			}
 		}
 		if (negated) {
 			return -intValue;
@@ -146,9 +221,11 @@ public class DependencyHelper<T, C> {
 	public IVec<T> getSolution() {
 		int[] model = solver.model();
 		IVec<T> toInstall = new Vec<T>();
-		for (int i : model) {
-			if (i > 0) {
-				toInstall.push(mapToDomain.get(i));
+		if (model != null) {
+			for (int i : model) {
+				if (i > 0) {
+					toInstall.push(mapToDomain.get(i));
+				}
 			}
 		}
 		return toInstall;
@@ -167,9 +244,11 @@ public class DependencyHelper<T, C> {
 	 *            a domain object
 	 * @return true iff the domain object has been set to true in the current
 	 *         solution.
+	 * @throws IllegalArgumentException
+	 *             If the argument of the method is unknown to the solver.
 	 */
 	public boolean getBooleanValueFor(T t) {
-		return solver.model(getIntValue(t));
+		return solver.model(getIntValue(t, false));
 	}
 
 	/**
@@ -265,7 +344,7 @@ public class DependencyHelper<T, C> {
 
 	private Set<C> why(IVecInt assumps) throws TimeoutException {
 		if (xplain.isSatisfiable(assumps)) {
-			return Collections.emptySet();
+			return new TreeSet<C>();
 		}
 		return why();
 	}
@@ -283,7 +362,10 @@ public class DependencyHelper<T, C> {
 	 *             inconsistent.
 	 */
 	public void setTrue(T thing, C name) throws ContradictionException {
-		descs.put(gator.gateTrue(getIntValue(thing)), name);
+		IConstr constr = gator.gateTrue(getIntValue(thing));
+		if (constr != null) {
+			descs.put(constr, name);
+		}
 	}
 
 	/**
@@ -299,7 +381,12 @@ public class DependencyHelper<T, C> {
 	 *             inconsistent.
 	 */
 	public void setFalse(T thing, C name) throws ContradictionException {
-		descs.put(gator.gateFalse(getIntValue(thing)), name);
+		IConstr constr = gator.gateFalse(getIntValue(thing));
+		// constraints duplication detection may end up with null constraint
+		if (constr != null) {
+			descs.put(constr, name);
+		}
+
 	}
 
 	/**
@@ -405,9 +492,11 @@ public class DependencyHelper<T, C> {
 			literals.push(getIntValue(t));
 		}
 		IConstr constr = gator.addClause(literals);
+		// constr can be null if duplicated clauses are detected.
 		if (constr != null) {
 			descs.put(constr, name);
 		}
+
 	}
 
 	/**
@@ -428,6 +517,10 @@ public class DependencyHelper<T, C> {
 		}
 		IConstr[] constrs = gator.iff(getIntValue(thing), literals);
 		for (IConstr constr : constrs) {
+			if (constr == null) {
+				throw new IllegalStateException(
+						"Constraints are not supposed to be null when using the helper");
+			}
 			descs.put(constr, name);
 		}
 	}
@@ -449,6 +542,10 @@ public class DependencyHelper<T, C> {
 		}
 		IConstr[] constrs = gator.and(getIntValue(thing), literals);
 		for (IConstr constr : constrs) {
+			if (constr == null) {
+				throw new IllegalStateException(
+						"Constraints are not supposed to be null when using the helper");
+			}
 			descs.put(constr, name);
 		}
 	}
@@ -470,6 +567,10 @@ public class DependencyHelper<T, C> {
 		}
 		IConstr[] constrs = gator.or(getIntValue(thing), literals);
 		for (IConstr constr : constrs) {
+			if (constr == null) {
+				throw new IllegalStateException(
+						"Constraints are not supposed to be null when using the helper");
+			}
 			descs.put(constr, name);
 		}
 	}
@@ -489,6 +590,10 @@ public class DependencyHelper<T, C> {
 				getIntValue(conditionThing), getIntValue(thenThing),
 				getIntValue(elseThing));
 		for (IConstr constr : constrs) {
+			if (constr == null) {
+				throw new IllegalStateException(
+						"Constraints are not supposed to be null when using the helper");
+			}
 			descs.put(constr, name);
 		}
 	}
@@ -504,10 +609,20 @@ public class DependencyHelper<T, C> {
 	public void setObjectiveFunction(WeightedObject<T>... wobj) {
 		createObjectivetiveFunctionIfNeeded(wobj.length);
 		for (WeightedObject<T> wo : wobj) {
-			objLiterals.push(getIntValue(wo.thing));
-			objCoefs.push(wo.getWeight());
+			addProperly(wo.thing, wo.getWeight());
 		}
 
+	}
+
+	private void addProperly(T thing, BigInteger weight) {
+		int lit = getIntValue(thing);
+		int index;
+		if (canonicalOptFunction && (index = objLiterals.indexOf(lit)) != -1) {
+			objCoefs.set(index, objCoefs.get(index).add(weight));
+		} else {
+			objLiterals.push(lit);
+			objCoefs.push(weight);
+		}
 	}
 
 	private void createObjectivetiveFunctionIfNeeded(int n) {
@@ -537,15 +652,13 @@ public class DependencyHelper<T, C> {
 	 */
 	public void addToObjectiveFunction(T thing, BigInteger weight) {
 		createObjectivetiveFunctionIfNeeded(20);
-		objLiterals.push(getIntValue(thing));
-		objCoefs.push(weight);
+		addProperly(thing, weight);
 	}
 
 	/**
 	 * Create a PB constraint of the form <code>
 	 * w1.l1 + w2.l2 + ... wn.ln >= degree
-	 * </code> where wi are position integers
-	 * and li are domain objects.
+	 * </code> where wi are position integers and li are domain objects.
 	 * 
 	 * @param degree
 	 * @param wobj
@@ -559,16 +672,13 @@ public class DependencyHelper<T, C> {
 			literals.push(getIntValue(wo.thing));
 			coeffs.push(wo.getWeight());
 		}
-		descs
-				.put(solver.addPseudoBoolean(literals, coeffs, true, degree),
-						name);
+		descs.put(solver.addPseudoBoolean(literals, coeffs, true, degree), name);
 	}
 
 	/**
 	 * Create a PB constraint of the form <code>
 	 * w1.l1 + w2.l2 + ... wn.ln <= degree
-	 * </code> where wi are position integers
-	 * and li are domain objects.
+	 * </code> where wi are position integers and li are domain objects.
 	 * 
 	 * @param degree
 	 * @param wobj
@@ -615,7 +725,7 @@ public class DependencyHelper<T, C> {
 		for (Iterator<T> it = things.iterator(); it.hasNext();) {
 			literals.push(-getIntValue(it.next()));
 		}
-		solver.addClause(literals);
+		solver.addBlockingClause(literals);
 	}
 
 	public void discardSolutionsWithObjectiveValueGreaterThan(long value)
@@ -648,7 +758,19 @@ public class DependencyHelper<T, C> {
 		return descs.size();
 	}
 
-	public Map<Integer, T> getVariablesMapping() {
+	public Map<Integer, T> getMappingToDomain() {
 		return mapToDomain;
+	}
+
+	public Object not(T thing) {
+		return new Negation(thing);
+	}
+
+	/**
+	 * @since 2.2
+	 * @return the IPBSolver enclosed in the helper.
+	 */
+	public IPBSolver getSolver() {
+		return solver;
 	}
 }

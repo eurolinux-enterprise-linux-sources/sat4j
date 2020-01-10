@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.sat
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.sat
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-05-26T11:38:54.078344Z
-465
+2010-02-26T18:01:15.852697Z
+642
 leberre
 
 
@@ -35,7 +35,7 @@ file
 
 
 
-2010-02-26T07:53:01.059310Z
+2010-12-14T17:43:26.517497Z
 4385da77250f0dfa387dc64fc1261cbb
 2008-06-10T20:06:33.969825Z
 18
@@ -69,7 +69,7 @@ file
 
 
 
-2010-02-26T07:53:01.059310Z
+2010-12-14T17:43:26.517497Z
 fe46491e02d83284eeb52f4d621f0970
 2008-06-10T20:06:33.969825Z
 18
@@ -106,7 +106,7 @@ file
 
 
 
-2010-02-26T07:53:01.060309Z
+2010-12-14T17:43:26.518497Z
 1aeebadb33c71c0b1517a417a2ae8b18
 2008-06-11T06:04:57.628941Z
 40
@@ -140,10 +140,10 @@ file
 
 
 
-2010-02-26T07:53:01.060309Z
-305d11a942c6c53b8d4bf568f15cc59e
-2009-05-26T11:38:54.078344Z
-465
+2010-12-14T17:43:26.518497Z
+1e3d7fbef2bd52a297f202193f87a33f
+2010-02-26T18:01:15.852697Z
+642
 leberre
 
 
@@ -166,7 +166,7 @@ leberre
 
 
 
-805
+1198
 
 .settings
 dir

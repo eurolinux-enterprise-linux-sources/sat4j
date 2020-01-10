@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/src/site
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/src/site
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:00.842557Z
+2010-12-14T17:43:26.312524Z
 d65dc26d582e2dcc48b4722c5f86b4ed
 2008-06-13T21:50:39.117644Z
 61

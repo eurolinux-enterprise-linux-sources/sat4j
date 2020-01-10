@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.core/src/main/java/org/sat4j/minisat/orders
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.core/src/main/java/org/sat4j/minisat/orders
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-02-14T16:08:10.632713Z
-310
+2009-12-13T11:29:30.167532Z
+584
 leberre
 
 
@@ -26,13 +26,47 @@ leberre
 
 ba638df5-4473-46d1-82f8-c3ae2a17a6e1
 
+RandomWalkDecorator.java
+file
+
+
+
+
+2010-12-14T17:43:41.955481Z
+6974086b62fd06d21393a208340afb2a
+2009-12-13T09:22:34.250615Z
+581
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1864
+
 VarOrderHeap.java
 file
 
 
 
 
-2010-02-26T07:53:03.513307Z
+2010-12-14T17:43:41.956481Z
 60a5b06ae7d3d65670300e5fddb43d12
 2009-02-14T16:08:10.632713Z
 310
@@ -66,10 +100,10 @@ file
 
 
 
-2010-02-26T07:53:03.513307Z
-3547e77db330f2c230841716b65588c2
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:41.956481Z
+c800f787840366c0bca4b1cb737ba415
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -92,7 +126,7 @@ leberre
 
 
 
-2017
+2003
 
 RandomLiteralSelectionStrategy.java
 file
@@ -100,10 +134,10 @@ file
 
 
 
-2010-02-26T07:53:03.514329Z
-bb8f95d970efdcb2a18a342b6c6af6c5
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:41.957481Z
+657c0999c1d641d2aaeab7dffb871b57
+2009-12-13T11:29:30.167532Z
+584
 leberre
 
 
@@ -126,7 +160,7 @@ leberre
 
 
 
-2478
+2427
 
 PureOrder.java
 file
@@ -134,10 +168,10 @@ file
 
 
 
-2010-02-26T07:53:03.514329Z
-be6da4644b262238ebfd46837403e12c
-2009-02-14T16:08:10.632713Z
-310
+2010-12-14T17:43:41.957481Z
+39de2c6210f06461284094ba9bb47b25
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -160,7 +194,7 @@ leberre
 
 
 
-3051
+2824
 
 NegativeLiteralSelectionStrategy.java
 file
@@ -168,10 +202,10 @@ file
 
 
 
-2010-02-26T07:53:03.514329Z
-794cbc637d36d7d22f9c210005f9909f
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:41.958481Z
+5808c975c1533bd50ec9676ccf723a43
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -194,7 +228,7 @@ leberre
 
 
 
-2135
+2112
 
 PositiveLiteralSelectionStrategy.java
 file
@@ -202,10 +236,10 @@ file
 
 
 
-2010-02-26T07:53:03.515328Z
-b7638e5a59f63c15295dc625d1a3fc84
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:41.958481Z
+d5d4799930a2717f8ed6719e5c08f99f
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -228,7 +262,7 @@ leberre
 
 
 
-2139
+2112
 
 UserFixedPhaseSelectionStrategy.java
 file
@@ -236,10 +270,10 @@ file
 
 
 
-2010-02-26T07:53:03.515328Z
-b7612fa9ac7ffc9f7979fd55ffe612df
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:41.959481Z
+84b4dfe3b6029907779e9ecc1f2f8a18
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -262,7 +296,41 @@ leberre
 
 
 
-2046
+2032
+
+PhaseCachingAutoEraseStrategy.java
+file
+
+
+
+
+2010-12-14T17:43:41.959481Z
+a7b6be2b18c02546a980510307d5e963
+2009-12-04T22:08:52.392219Z
+572
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+488
 
 ValuedLit.java
 file
@@ -270,10 +338,10 @@ file
 
 
 
-2010-02-26T07:53:03.515328Z
-47c30dc34b12c4a0e7e05206d5a32d86
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:41.959481Z
+0b0570eba64cb4b051b7a7dc346ea21a
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -296,7 +364,7 @@ leberre
 
 
 
-2451
+2322
 
 AbstractPhaserecordingSelectionStrategy.java
 file
@@ -304,7 +372,7 @@ file
 
 
 
-2010-02-26T07:53:03.515328Z
+2010-12-14T17:43:41.960481Z
 cb51823064d74477307310b61e13427a
 2008-06-10T18:28:02.624411Z
 8
@@ -338,10 +406,10 @@ file
 
 
 
-2010-02-26T07:53:03.516329Z
-64f94cae52240810cb78282e8902ea0a
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:41.960481Z
+cf0e359c6e5a584c6c071461424701ba
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -364,7 +432,7 @@ leberre
 
 
 
-2106
+2089
 
 package.html
 file
@@ -372,7 +440,7 @@ file
 
 
 
-2010-02-26T07:53:03.516329Z
+2010-12-14T17:43:41.960481Z
 a25ac68f60ad8cbd208395dd8c6fd124
 2008-06-10T18:28:02.624411Z
 8

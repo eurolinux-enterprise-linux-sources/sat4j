@@ -55,23 +55,30 @@ public class EfficientScanner implements Serializable {
 
 	private static final char EOF = (char) -1;
 
+	private final char commentChar;
+
 	/*
 	 * nomFichier repr?sente le nom du fichier ? lire
 	 */
-	public EfficientScanner(final InputStream input) {
+	public EfficientScanner(final InputStream input, char commentChar) {
 		this.in = new BufferedInputStream(input, EfficientScanner.TAILLE_BUF);
+		this.commentChar = commentChar;
+	}
+
+	public EfficientScanner(final InputStream input) {
+		this(input, 'c');
 	}
 
 	public void close() throws IOException {
 		in.close();
 	}
 
-	/** on passe les commentaires et on lit le nombre de literaux */
+	/** Skip commented lines. */
 	public void skipComments() throws IOException {
 		char currentChar;
 		for (;;) {
 			currentChar = currentChar();
-			if (currentChar != 'c') {
+			if (currentChar != commentChar) {
 				break;
 			}
 			skipRestOfLine();
@@ -80,6 +87,13 @@ public class EfficientScanner implements Serializable {
 		}
 	}
 
+	/**
+	 * To get the next available integer.
+	 * 
+	 * @return
+	 * @throws IOException
+	 * @throws ParseFormatException
+	 */
 	public int nextInt() throws IOException, ParseFormatException {
 		int val = 0;
 		boolean neg = false;
@@ -127,6 +141,10 @@ public class EfficientScanner implements Serializable {
 		return new BigInteger(stb.toString());
 	}
 
+	/**
+	 * @throws ParseFormatException
+	 *             never used in that method.
+	 */
 	public String next() throws IOException, ParseFormatException {
 		StringBuffer stb = new StringBuffer();
 		char currentChar = skipSpaces();
@@ -140,8 +158,10 @@ public class EfficientScanner implements Serializable {
 	public char skipSpaces() throws IOException {
 		char car;
 
-		while ((car = (char) in.read()) == ' ' || car == '\n')
-			;
+		do {
+			car = (char) in.read();
+		} while (car == ' ' || car == '\n');
+
 		return car;
 	}
 

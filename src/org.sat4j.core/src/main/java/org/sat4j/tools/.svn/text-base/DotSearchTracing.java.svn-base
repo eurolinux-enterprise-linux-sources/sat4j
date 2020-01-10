@@ -25,7 +25,7 @@
  * See www.minisat.se for the original solver in C++.
  * 
  *******************************************************************************/
-package org.sat4j.minisat.core;
+package org.sat4j.tools;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,9 +50,9 @@ import org.sat4j.specs.SearchListener;
  * remote solver.
  * 
  * @author daniel
- * 
+ * @since 2.2
  */
-public class DotSearchListener<T> implements SearchListener {
+public class DotSearchTracing<T> implements SearchListener {
 
 	/**
      * 
@@ -72,8 +72,7 @@ public class DotSearchListener<T> implements SearchListener {
 	/**
 	 * @since 2.1
 	 */
-	public DotSearchListener(final String fileNameToSave,
-			Map<Integer, T> mapping) {
+	public DotSearchTracing(final String fileNameToSave, Map<Integer, T> mapping) {
 		pile = new Vec<String>();
 		this.mapping = mapping;
 		try {
@@ -159,7 +158,7 @@ public class DotSearchListener<T> implements SearchListener {
 	/**
 	 * @since 2.1
 	 */
-	public final void conflictFound(IConstr confl) {
+	public final void conflictFound(IConstr confl, int dlevel, int trailLevel) {
 		saveLine(lineTab("\"" + currentNodeName
 				+ "\" [label=\"\", shape=box, color=\"red\", style=filled]"));
 	}
@@ -211,5 +210,12 @@ public class DotSearchListener<T> implements SearchListener {
 		// if the solver is serialized, out is linked to stdout
 		stream.defaultReadObject();
 		out = new PrintWriter(System.out);
+	}
+
+	public void restarting() {
+		// DLB add support for restarts on the graphs.
+	}
+
+	public void backjump(int backjumpLevel) {
 	}
 }

@@ -91,12 +91,12 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	private static final double CLAUSE_RESCALE_BOUND = 1 / CLAUSE_RESCALE_FACTOR;
 
 	/**
-	 * List des contraintes du probl?me.
+	 * Set of original constraints.
 	 */
 	private final IVec<Constr> constrs = new Vec<Constr>(); // Constr
 
 	/**
-	 * Liste des clauses apprises.
+	 * Set of learned constraints.
 	 */
 	private final IVec<Constr> learnts = new Vec<Constr>(); // Clause
 
@@ -113,7 +113,6 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	/**
 	 * Queue de propagation
 	 */
-	// private final IntQueue propQ = new IntQueue(); // Lit
 	// head of the queue in trail ... (taken from MiniSAT 1.14)
 	private int qhead = 0;
 
@@ -146,9 +145,9 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 	private final ActivityComparator comparator = new ActivityComparator();
 
-	private final SolverStats stats = new SolverStats();
+	private SolverStats stats = new SolverStats();
 
-	private final LearningStrategy<D> learner;
+	private LearningStrategy<D> learner;
 
 	protected final AssertingClauseGenerator analyzer;
 
@@ -164,7 +163,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 	private final IVecInt __dimacs_out = new VecInt();
 
-	private SearchListener slistener = new NullSearchListener();
+	private SearchListener slistener = new VoidTracing();
 
 	private RestartStrategy restarter;
 
@@ -174,16 +173,15 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 	private final IVecInt learnedLiterals = new VecInt();
 
+	private boolean verbose = true;
+
+	private String prefix = "c ";
+
 	protected IVecInt dimacs2internal(IVecInt in) {
-		// if (voc.nVars() == 0) {
-		// throw new RuntimeException(
-		// "Please set the number of variables (solver.newVar() or solver.newVar(maxvar)) before adding constraints!"
-		// );
-		// }
 		__dimacs_out.clear();
 		__dimacs_out.ensure(in.size());
 		for (int i = 0; i < in.size(); i++) {
-			assert (in.get(i) != 0); // && (Math.abs(in.get(i)) <= voc.nVars());
+			assert (in.get(i) != 0);
 			__dimacs_out.unsafePush(voc.getFromPool(in.get(i)));
 		}
 		return __dimacs_out;
@@ -214,7 +212,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	}
 
 	/**
-	 * Change the internal representation of the contraints. Note that the
+	 * Change the internal representation of the constraints. Note that the
 	 * heuristics must be changed prior to calling that method.
 	 * 
 	 * @param dsf
@@ -229,10 +227,39 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	}
 
 	/**
+	 * @since 2.2
+	 */
+	public boolean isVerbose() {
+		return verbose;
+	}
+
+	/**
+	 * @param value
+	 * @since 2.2
+	 */
+	public void setVerbose(boolean value) {
+		verbose = value;
+	}
+
+	/**
 	 * @since 2.1
 	 */
 	public void setSearchListener(SearchListener sl) {
 		slistener = sl;
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public SearchListener getSearchListener() {
+		return slistener;
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public void setLearner(LearningStrategy<D> learner) {
+		this.learner = learner;
 	}
 
 	public void setTimeout(int t) {
@@ -287,7 +314,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		}
 	}
 
-	public int decisionLevel() {
+	public final int decisionLevel() {
 		return trailLim.size();
 	}
 
@@ -368,12 +395,6 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 	@SuppressWarnings("unchecked")
 	public boolean simplifyDB() {
-		// aucune raison de recommencer un propagate?
-		// if (propagate() != null) {
-		// // Un conflit est d?couvert, la base est inconsistante
-		// return false;
-		// }
-
 		// Simplifie la base de clauses apres la premiere propagation des
 		// clauses unitaires
 		IVec<Constr>[] cs = new IVec[] { constrs, learnts };
@@ -425,7 +446,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	 *            the literal.
 	 * @param from
 	 *            the reason to propagate that literal, else null
-	 * @return true if the asignment can be made, false if a conflict is
+	 * @return true if the assignment can be made, false if a conflict is
 	 *         detected.
 	 */
 	public boolean enqueue(int p, Constr from) {
@@ -443,24 +464,23 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		voc.setLevel(p, decisionLevel());
 		voc.setReason(p, from);
 		trail.push(p);
-		if (from != null) {
-			from.forwardActivity(claInc);
-		}
 		return true;
 	}
 
 	private boolean[] mseen = new boolean[0];
 
-	private final IVecInt preason = new VecInt();
+	private final IVecInt mpreason = new VecInt();
 
-	private final IVecInt outLearnt = new VecInt();
+	private final IVecInt moutLearnt = new VecInt();
 
 	public void analyze(Constr confl, Pair results) {
 		assert confl != null;
-		outLearnt.clear();
 
 		final boolean[] seen = mseen;
+		final IVecInt outLearnt = moutLearnt;
+		final IVecInt preason = mpreason;
 
+		outLearnt.clear();
 		assert outLearnt.size() == 0;
 		for (int i = 0; i < seen.length; i++) {
 			seen[i] = false;
@@ -483,12 +503,12 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 				int q = preason.get(j);
 				order.updateVar(q);
 				if (!seen[q >> 1]) {
-					// order.updateVar(q); // MINISAT
 					seen[q >> 1] = true;
 					if (voc.getLevel(q) == decisionLevel()) {
 						analyzer.onCurrentDecisionLevelLiteral(q);
 					} else if (voc.getLevel(q) > 0) {
-						// ajoute les variables depuis le niveau de d?cision 0
+						// only literals assigned after decision level 0 part of
+						// the explanation
 						outLearnt.push(q ^ 1);
 						outBtlevel = Math.max(outBtlevel, voc.getLevel(q));
 					}
@@ -515,6 +535,64 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 		assert outBtlevel > -1;
 		results.backtrackLevel = outBtlevel;
+	}
+
+	public IVecInt analyzeFinalConflictInTermsOfAssumptions(Constr confl,
+			IVecInt assumps, int conflictingLiteral) {
+		if (assumps.size() == 0) {
+			return null;
+		}
+		final boolean[] seen = mseen;
+		final IVecInt outLearnt = moutLearnt;
+		final IVecInt preason = mpreason;
+
+		outLearnt.clear();
+		assert outLearnt.size() == 0;
+		for (int i = 0; i < seen.length; i++) {
+			seen[i] = false;
+		}
+
+		if (confl == null) {
+			seen[conflictingLiteral >> 1] = true;
+		}
+
+		int p = ILits.UNDEFINED;
+		while (confl == null) {
+			p = trail.last();
+			confl = voc.getReason(p);
+			undoOne();
+			if (trail.size() <= trailLim.last()) {
+				trailLim.pop();
+			}
+		}
+		do {
+
+			preason.clear();
+			confl.calcReason(p, preason);
+			// Trace reason for p
+			for (int j = 0; j < preason.size(); j++) {
+				int q = preason.get(j);
+				if (!seen[q >> 1]) {
+					seen[q >> 1] = true;
+					if (voc.getReason(q) == null && voc.getLevel(q) > 0) {
+						assert assumps.contains(toDimacs(q));
+						outLearnt.push(toDimacs(q));
+					}
+				}
+			}
+
+			// select next reason to look at
+			do {
+				p = trail.last();
+				confl = voc.getReason(p);
+				undoOne();
+				if (decisionLevel() > 0 && trail.size() <= trailLim.last()) {
+					trailLim.pop();
+				}
+			} while (trail.size() > 0 && decisionLevel() > 0
+					&& (!seen[p >> 1] || confl == null));
+		} while (decisionLevel() > 0);
+		return outLearnt;
 	}
 
 	interface ISimplifier extends Serializable {
@@ -850,10 +928,13 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 	private boolean[] fullmodel;
 
-	Lbool search(long nofConflicts) {
+	private IVecInt unsatExplanationInTermsOfAssumptions;
+
+	Lbool search(long nofConflicts, IVecInt assumps) {
 		assert rootLevel == decisionLevel();
 		stats.starts++;
 		int conflictC = 0;
+		int backjumpLevel;
 
 		// varDecay = 1 / params.varDecay;
 		order.setVarDecay(1 / params.getVarDecay());
@@ -906,16 +987,25 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 				// un conflit apparait
 				stats.conflicts++;
 				conflictC++;
-				slistener.conflictFound(confl);
+				slistener.conflictFound(confl, decisionLevel(), trail.size());
 				conflictCount.newConflict();
+
 				if (decisionLevel() == rootLevel) {
 					// on est a la racine, la formule est inconsistante
+					unsatExplanationInTermsOfAssumptions = analyzeFinalConflictInTermsOfAssumptions(
+							confl, assumps, ILits.UNDEFINED);
 					return Lbool.FALSE;
 				}
 				// analyze conflict
 				analyze(confl, analysisResult);
 				assert analysisResult.backtrackLevel < decisionLevel();
-				cancelUntil(Math.max(analysisResult.backtrackLevel, rootLevel));
+				backjumpLevel = Math.max(analysisResult.backtrackLevel,
+						rootLevel);
+				slistener.backjump(backjumpLevel);
+				cancelUntil(backjumpLevel);
+				if (backjumpLevel == rootLevel) {
+					conflictC = 0;
+				}
 				assert (decisionLevel() >= rootLevel)
 						&& (decisionLevel() >= analysisResult.backtrackLevel);
 				if (analysisResult.reason == null) {
@@ -1042,7 +1132,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	/**
 	 * @since 2.1
 	 */
-	public LearnedConstraintsDeletionStrategy MEMORY_BASED = new LearnedConstraintsDeletionStrategy() {
+	public final LearnedConstraintsDeletionStrategy memory_based = new LearnedConstraintsDeletionStrategy() {
 
 		/**
 		 * 
@@ -1078,8 +1168,11 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 			for (; i < learnts.size(); i++) {
 				learnts.set(j++, learnts.get(i));
 			}
-			System.out.println("c cleaning " + (learnts.size() - j) //$NON-NLS-1$
-					+ " clauses out of " + learnts.size()); //$NON-NLS-1$ //$NON-NLS-2$
+			if (verbose) {
+				System.out.println(getLogPrefix()
+						+ "cleaning " + (learnts.size() - j) //$NON-NLS-1$
+						+ " clauses out of " + learnts.size()); //$NON-NLS-1$ //$NON-NLS-2$
+			}
 			learnts.shrinkTo(j);
 		}
 
@@ -1096,7 +1189,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 			// do nothing
 		}
 
-		public void onConflict(Constr outLearnt) {
+		public void onConflict(Constr constr) {
 			// do nothing
 
 		}
@@ -1110,7 +1203,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	/**
 	 * @since 2.1
 	 */
-	public LearnedConstraintsDeletionStrategy GLUCOSE = new LearnedConstraintsDeletionStrategy() {
+	public final LearnedConstraintsDeletionStrategy glucose = new LearnedConstraintsDeletionStrategy() {
 
 		/**
 		 * 
@@ -1118,21 +1211,24 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		private static final long serialVersionUID = 1L;
 		private int[] flags = new int[0];
 		private int flag = 0;
+		private int wall = 0;
 
 		private final ConflictTimer clauseManagement = new ConflictTimerAdapter(
-				500) {
+				1000) {
 			private static final long serialVersionUID = 1L;
 			private int nbconflict = 0;
-			private static final int MAX_CLAUSE = 20000;
-			private static final int INC_CLAUSE = 500;
+			private static final int MAX_CLAUSE = 5000;
+			private static final int INC_CLAUSE = 1000;
 			private int nextbound = MAX_CLAUSE;
 
 			@Override
 			void run() {
-				nbconflict += INC_CLAUSE;
-
+				nbconflict += bound();
 				if (nbconflict >= nextbound) {
 					nextbound += INC_CLAUSE;
+					if (nextbound > wall) {
+						nextbound = wall;
+					}
 					nbconflict = 0;
 					needToReduceDB = true;
 				}
@@ -1149,9 +1245,12 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 					c.remove(Solver.this);
 				}
 			}
-			System.out
-					.println("c cleaning " + (learnedConstrs.size() - j) //$NON-NLS-1$
-							+ " clauses out of " + learnedConstrs.size() + " with flag " + flag); //$NON-NLS-1$ //$NON-NLS-2$
+			if (verbose) {
+				System.out
+						.println(getLogPrefix()
+								+ "cleaning " + (learnedConstrs.size() - j) //$NON-NLS-1$
+								+ " clauses out of " + learnedConstrs.size() + " with flag " + flag + "/" + stats.conflicts); //$NON-NLS-1$ //$NON-NLS-2$
+			}
 			learnts.shrinkTo(j);
 
 		}
@@ -1167,25 +1266,25 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 		public void init() {
 			final int howmany = voc.nVars();
+			wall = constrs.size() > 10000 ? constrs.size() : 10000;
 			if (flags.length <= howmany) {
 				flags = new int[howmany + 1];
 			}
 
 		}
 
-		public void onConflict(Constr outLearnt) {
-			// TODO Auto-generated method stub
+		public void onConflict(Constr constr) {
 			int nblevel = 1;
 			flag++;
 			int currentLevel;
-			for (int i = 1; i < outLearnt.size(); i++) {
-				currentLevel = voc.getLevel(outLearnt.get(i));
+			for (int i = 1; i < constr.size(); i++) {
+				currentLevel = voc.getLevel(constr.get(i));
 				if (flags[currentLevel] != flag) {
 					flags[currentLevel] = flag;
 					nblevel++;
 				}
 			}
-			outLearnt.incActivity(nblevel);
+			constr.incActivity(nblevel);
 		}
 
 		public void onConflictAnalysis(Constr reason) {
@@ -1193,7 +1292,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		}
 	};
 
-	private LearnedConstraintsDeletionStrategy learnedConstraintsDeletionStrategy = MEMORY_BASED;
+	private LearnedConstraintsDeletionStrategy learnedConstraintsDeletionStrategy = glucose;
 
 	/**
 	 * @param lcds
@@ -1219,6 +1318,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		slistener.start();
 		model = null; // forget about previous model
 		fullmodel = null;
+		unsatExplanationInTermsOfAssumptions = null;
 		order.init();
 		learnedConstraintsDeletionStrategy.init();
 
@@ -1234,7 +1334,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		Constr confl = propagate();
 		if (confl != null) {
 			analyzeAtRootLevel(confl);
-			slistener.conflictFound(confl);
+			slistener.conflictFound(confl, 0, 0);
 			slistener.end(Lbool.FALSE);
 			cancelUntil(0);
 			cancelLearntLiterals(learnedLiteralsLimit);
@@ -1243,13 +1343,21 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 		// push incremental assumptions
 		for (IteratorInt iterator = assumps.iterator(); iterator.hasNext();) {
-			int p = voc.getFromPool(iterator.next());
+			int assump = iterator.next();
+			int p = voc.getFromPool(assump);
 			if (!assume(p) || ((confl = propagate()) != null)) {
 				if (confl == null) {
 					slistener.conflictFound(p);
+					unsatExplanationInTermsOfAssumptions = analyzeFinalConflictInTermsOfAssumptions(
+							null, assumps, p);
+					unsatExplanationInTermsOfAssumptions.push(assump);
 				} else {
-					slistener.conflictFound(confl);
+					slistener.conflictFound(confl, decisionLevel(), trail
+							.size());
+					unsatExplanationInTermsOfAssumptions = analyzeFinalConflictInTermsOfAssumptions(
+							confl, assumps, ILits.UNDEFINED);
 				}
+
 				slistener.end(Lbool.FALSE);
 				cancelUntil(0);
 				cancelLearntLiterals(learnedLiteralsLimit);
@@ -1261,10 +1369,11 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		// assumptions.
 		order.init(); // duplicated on purpose
 		learner.init();
-		restarter.init(params);
 
+		boolean firstTimeGlobal = false;
 		if (timeBasedTimeout) {
 			if (!global || timer == null) {
+				firstTimeGlobal = true;
 				TimerTask stopMe = new TimerTask() {
 					@Override
 					public void run() {
@@ -1278,6 +1387,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 			}
 		} else {
 			if (!global || conflictCount == null) {
+				firstTimeGlobal = true;
 				ConflictTimer conflictTimeout = new ConflictTimerAdapter(
 						(int) timeout) {
 					private static final long serialVersionUID = 1L;
@@ -1293,14 +1403,16 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 						learnedConstraintsDeletionStrategy.getTimer());
 			}
 		}
+		if (!global || firstTimeGlobal)
+			restarter.init(params);
 		needToReduceDB = false;
 		// Solve
 		while ((status == Lbool.UNDEFINED) && undertimeout) {
-			status = search(restarter.nextRestartNumberOfConflict());
-			// System.out.println("c speed
-			// "+(stats.decisions/((System.currentTimeMillis()-timebegin)/1000))+"
-			// dec/s, "+stats.starts+"/"+stats.conflicts);
-			restarter.onRestart();
+			status = search(restarter.nextRestartNumberOfConflict(), assumps);
+			if (status == Lbool.UNDEFINED) {
+				restarter.onRestart();
+				slistener.restarting();
+			}
 		}
 
 		cancelUntil(0);
@@ -1349,6 +1461,15 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 
 	public SolverStats getStats() {
 		return stats;
+	}
+
+	/**
+	 * 
+	 * @param myStats
+	 * @since 2.2
+	 */
+	protected void initStats(SolverStats myStats) {
+		this.stats = myStats;
 	}
 
 	public IOrder getOrder() {
@@ -1406,7 +1527,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	}
 
 	public IVecInt getOutLearnt() {
-		return outLearnt;
+		return moutLearnt;
 	}
 
 	/**
@@ -1427,7 +1548,7 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 	 * java.lang.String)
 	 */
 	public void printStat(PrintStream out, String prefix) {
-		printStat(new PrintWriter(out), prefix);
+		printStat(new PrintWriter(out, true), prefix);
 	}
 
 	public void printStat(PrintWriter out, String prefix) {
@@ -1561,6 +1682,27 @@ public class Solver<D extends DataStructureFactory> implements ISolver,
 		undoOne();
 	}
 
+	/**
+	 * @since 2.2
+	 */
+	public void setLogPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public String getLogPrefix() {
+		return prefix;
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public IVecInt unsatExplanation() {
+		return unsatExplanationInTermsOfAssumptions;
+	}
+
 }
 
 class ActivityComparator implements Comparator<Constr>, Serializable {
@@ -1617,6 +1759,10 @@ abstract class ConflictTimerAdapter implements Serializable, ConflictTimer {
 	}
 
 	abstract void run();
+
+	public int bound() {
+		return bound;
+	}
 }
 
 class ConflictTimerContainer implements Serializable, ConflictTimer {

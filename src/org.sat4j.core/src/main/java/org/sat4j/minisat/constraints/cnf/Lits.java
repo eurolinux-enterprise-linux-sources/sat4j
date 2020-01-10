@@ -29,6 +29,7 @@ package org.sat4j.minisat.constraints.cnf;
 
 import java.io.Serializable;
 
+import org.sat4j.core.LiteralsUtils;
 import org.sat4j.core.Vec;
 import org.sat4j.minisat.core.Constr;
 import org.sat4j.minisat.core.ILits;
@@ -41,7 +42,7 @@ import org.sat4j.specs.IVec;
  * @author leberre
  * 
  */
-public class Lits implements Serializable, ILits {
+public final class Lits implements Serializable, ILits {
 
 	private static final int DEFAULT_INIT_SIZE = 128;
 
@@ -69,7 +70,7 @@ public class Lits implements Serializable, ILits {
 		init(DEFAULT_INIT_SIZE);
 	}
 
-	@SuppressWarnings( { "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public final void init(int nvar) {
 		if (nvar < pool.length) {
 			return;
@@ -111,7 +112,7 @@ public class Lits implements Serializable, ILits {
 		if (var > maxvarid) {
 			maxvarid = var;
 		}
-		int lit = ((x < 0) ? (var << 1) ^ 1 : (var << 1));
+		int lit = LiteralsUtils.toInternal(x);
 		assert lit > 1;
 		if (!pool[var]) {
 			realnVars++;

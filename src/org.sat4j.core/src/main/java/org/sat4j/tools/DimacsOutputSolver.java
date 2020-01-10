@@ -283,4 +283,47 @@ public class DimacsOutputSolver implements ISolver {
 			throws ContradictionException {
 		throw new UnsupportedOperationException();
 	}
+
+	/**
+	 * @since 2.2
+	 */
+	public SearchListener getSearchListener() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public boolean isVerbose() {
+		return true;
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public void setVerbose(boolean value) {
+		// do nothing
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public void setLogPrefix(String prefix) {
+		// do nothing
+
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public String getLogPrefix() {
+		return "";
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public IVecInt unsatExplanation() {
+		throw new UnsupportedOperationException();
+	}
 }

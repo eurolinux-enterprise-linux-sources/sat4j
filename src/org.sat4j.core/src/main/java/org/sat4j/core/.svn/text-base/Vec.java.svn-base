@@ -82,8 +82,7 @@ public final class Vec<T> implements IVec<T> {
 	 * @param elts
 	 *            a filled array of T.
 	 */
-	public Vec(T[] elts) {
-		// DLB findbugs ok
+	public Vec(T[] elts) { // NOPMD
 		myarray = elts;
 		nbelem = elts.length;
 	}
@@ -424,7 +423,7 @@ public final class Vec<T> implements IVec<T> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof IVec) {
+		if (obj instanceof IVec<?>) {
 			IVec<?> v = (IVec<?>) obj;
 			if (v.size() != size())
 				return false;
@@ -485,5 +484,13 @@ public final class Vec<T> implements IVec<T> {
 				return true;
 		}
 		return false;
+	}
+
+	public int indexOf(T element) {
+		for (int i = 0; i < nbelem; i++) {
+			if (myarray[i].equals(element))
+				return i;
+		}
+		return -1;
 	}
 }

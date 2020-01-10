@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.pb/.settings
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.pb/.settings
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-02-28T20:39:36.813162Z
-341
+2010-01-09T09:59:29.302267Z
+613
 leberre
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2010-02-26T07:53:19.292309Z
-0a227b175042f630b6ae9e667bfa28a7
-2008-08-06T15:16:24.669202Z
-118
+2010-12-14T17:45:19.891693Z
+af552da667a6750428d1626b02352320
+2010-01-09T09:59:29.302267Z
+613
 leberre
 
 
@@ -58,7 +58,7 @@ leberre
 
 
 
-618
+620
 
 org.eclipse.jdt.ui.prefs
 file
@@ -66,7 +66,7 @@ file
 
 
 
-2010-02-26T07:53:19.292309Z
+2010-12-14T17:45:19.892693Z
 09d5e1cb7f545b3eb7c275767fad870d
 2009-02-28T20:39:36.813162Z
 341

@@ -1,6 +1,8 @@
 <project name="sat4j" default="p2">
          <!-- using Eclipse compiler -->
+         <!--
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        -->
         <property name="testreport.dir" value="tests"/>
 	<property name="build" value="bin" />
 	<property name="doc" value="api" />
@@ -9,6 +11,7 @@
         <property name="release" value="CUSTOM"/>
         <property name="tag" value="HEAD"/>
         <property name="lib" value="lib"/>
+        <property name="next.eclipse.release.date" value="June, 2010"/>
 	<target name="pseudo" depends="core" description="Build a jar file suitable for the PB evaluations from current source tree">
 		<echo>Building Pseudo Boolean Solver</echo>
 		<antcall target="build">
@@ -116,7 +119,7 @@
                 </antcall>
 	</target>
 
-	<target name="sat" depends="core" description="Build a jar file suitable for experimenting with SAT solvers from  current source tree">
+	<target name="sat" depends="core,pseudo" description="Build a jar file suitable for experimenting with SAT solvers from  current source tree">
 		<echo>Building the Java SAT Solvers toolkit</echo>
                 <antcall target="build">
 		   <param name="package" value="sat"/>
@@ -133,11 +136,13 @@
                 <jar destfile="${dist}/${release}/sat4j-sat.jar" basedir="${build}" manifest="${build}/META-INF/MANIFEST.MF">		 
 		   <zipgroupfileset dir="${dist}/${release}">
                            <include name="org.sat4j.core.jar"/>
+                           <include name="org.sat4j.pb.jar"/>
 			   <include name="org.sat4j.sat.jar"/>
 		   </zipgroupfileset>
                    <zipgroupfileset dir="${lib}">
                            <include name="commons-cli.jar"/>
                            <include name="commons-beanutils.jar"/>
+                           <include name="commons-logging.jar"/>
 		   </zipgroupfileset>
                </jar>
                <antcall target="zip-bundle">
@@ -207,7 +212,11 @@
 	<path id="somePath">
 		<pathelement location="${build}"/>
 		<fileset dir="${lib}">
+			<include name="*src.jar"/>
+		</fileset>
+        <fileset dir="${lib}">
 			<include name="*.jar"/>
+            <exclude name="*src.jar"/>
 		</fileset>
 		<fileset dir="${dist}/${release}">
 			<include name="*.jar"/>
@@ -279,7 +288,10 @@
 				<include name="**/*.MF"/>
 			</fileset>
 		</copy>
-		<replace dir="${build}" token="9.9.9.token" value="${release}.v${BUILD_DATE}"><include name="**/*.version"/><include name="**/*.MF"/></replace>
+		<replace dir="${build}" token="9.9.9.token" value="${release}.v${BUILD_DATE}"><include name="**/*.MF"/></replace>
+                <replace dir="${build}" token="$${version}" value="${release}.v${BUILD_DATE}"><include name="**/*.version"/></replace>
+		<replace dir="${build}" token="$${version}" value="${release}"><include name="**/about.html"/></replace>
+                <replace dir="${build}" token="$${next.eclipse.release.date}" value="${next.eclipse.release.date}"><include name="**/about.html"/></replace>
 		<jar destfile="${dist}/${release}/${jarname}.jar" basedir="${build}" manifest="${build}/META-INF/MANIFEST.MF"/>
 		<copy todir="${dist}/${release}/lib" failonerror="false">
 			<fileset dir="${lib}">
@@ -348,7 +360,7 @@
         <target name="tests" 
           description="Launch JUnit tests and generate a report">
 		<echo>Compiling test files</echo>
-		<javac srcdir="${test}" destdir="${build}" source="1.5" debug="true">
+		<javac srcdir="${test}" destdir="${build}" source="1.5" target="1.5" debug="true">
 			<classpath refid="somePath"/>
 		</javac>
 		<echo>Running JUNIT tests</echo>

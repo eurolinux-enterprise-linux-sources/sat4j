@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.sat/src/main/java/org/sat4j/sat
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.sat/src/main/java/org/sat4j/sat
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-05-20T21:15:15.068982Z
-462
+2009-12-13T14:11:52.179611Z
+596
 leberre
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2010-02-26T07:53:00.984309Z
-6d447e64f124faeb540361afb6bd16e9
-2009-05-20T21:15:15.068982Z
-462
+2010-12-14T17:43:26.493500Z
+b8f59cc7270c382fa044379d4059af14
+2009-12-13T14:11:52.179611Z
+596
 leberre
 
 
@@ -58,5 +58,5 @@ leberre
 
 
 
-11941
+14156
 

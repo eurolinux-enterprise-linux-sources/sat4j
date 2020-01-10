@@ -25,44 +25,54 @@
  * See www.minisat.se for the original solver in C++.
  * 
  *******************************************************************************/
-package org.sat4j.pb.constraints;
+package org.sat4j.minisat.core;
 
-import org.sat4j.minisat.core.Constr;
-import org.sat4j.pb.constraints.pb.LearntBinaryClausePB;
-import org.sat4j.pb.constraints.pb.LearntHTClausePB;
-import org.sat4j.pb.constraints.pb.OriginalBinaryClausePB;
-import org.sat4j.pb.constraints.pb.OriginalHTClausePB;
-import org.sat4j.pb.constraints.pb.UnitClausePB;
-import org.sat4j.specs.IVecInt;
+import org.sat4j.specs.IConstr;
+import org.sat4j.specs.Lbool;
+import org.sat4j.specs.SearchListener;
 
-public class CompetPBMaxMixedHTClauseCardConstrDataStructure extends
-		PBMaxClauseCardConstrDataStructure {
-
-	/**
-     * 
-     */
+final class VoidTracing implements SearchListener {
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	protected Constr constructClause(IVecInt v) {
-		if (v == null)
-			return null;
-		if (v.size() == 2) {
-			return OriginalBinaryClausePB.brandNewClause(solver,
-					getVocabulary(), v);
-		}
-		return OriginalHTClausePB.brandNewClause(solver, getVocabulary(), v);
+	public void assuming(int p) {
 	}
 
-	@Override
-	protected Constr constructLearntClause(IVecInt resLits) {
-		if (resLits.size() == 1) {
-			return new UnitClausePB(resLits.last(), getVocabulary());
-		}
-		if (resLits.size() == 2) {
-			return new LearntBinaryClausePB(resLits, getVocabulary());
-		}
-		return new LearntHTClausePB(resLits, getVocabulary());
+	public void propagating(int p, IConstr reason) {
 	}
 
+	public void backtracking(int p) {
+	}
+
+	public void adding(int p) {
+	}
+
+	public void learn(IConstr clause) {
+	}
+
+	public void delete(int[] clause) {
+	}
+
+	public void conflictFound(IConstr confl, int dlevel, int trailLevel) {
+	}
+
+	public void conflictFound(int p) {
+	}
+
+	public void solutionFound() {
+	}
+
+	public void beginLoop() {
+	}
+
+	public void start() {
+	}
+
+	public void end(Lbool result) {
+	}
+
+	public void restarting() {
+	}
+
+	public void backjump(int backjumpLevel) {
+	}
 }

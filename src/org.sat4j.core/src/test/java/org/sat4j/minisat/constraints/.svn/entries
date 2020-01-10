@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.core/src/test/java/org/sat4j/minisat/constraints
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.core/src/test/java/org/sat4j/minisat/constraints
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:01.284323Z
+2010-12-14T17:43:26.604486Z
 a8e9f4bfb61da9c0a9059d7d1205a412
 2009-01-16T20:55:42.581036Z
 274

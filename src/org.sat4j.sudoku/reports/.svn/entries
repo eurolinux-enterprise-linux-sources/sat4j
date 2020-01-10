@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.sudoku/reports
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.sudoku/reports
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:00.835558Z
+2010-12-14T17:43:26.305525Z
 8d976e4286b6cfe4baee17bacb83e99f
 2009-02-13T14:23:51.102033Z
 306
@@ -66,7 +66,7 @@ file
 
 
 
-2010-02-26T07:53:00.835558Z
+2010-12-14T17:43:26.305525Z
 df920324cfc5f3e5f72e721f879c085c
 2009-02-13T14:23:51.102033Z
 306
@@ -100,7 +100,7 @@ file
 
 
 
-2010-02-26T07:53:00.836558Z
+2010-12-14T17:43:26.305525Z
 df2fc5b174df019f3598a16f04669a69
 2009-02-13T14:23:51.102033Z
 306
@@ -134,7 +134,7 @@ file
 
 
 
-2010-02-26T07:53:00.836558Z
+2010-12-14T17:43:26.305525Z
 119d81bb3789ea2493fb00a02ccbccfc
 2009-02-13T14:23:51.102033Z
 306
@@ -168,7 +168,7 @@ file
 
 
 
-2010-02-26T07:53:00.836558Z
+2010-12-14T17:43:26.305525Z
 f6761923e3d20ea2351c98408b08f03e
 2009-02-13T14:23:51.102033Z
 306

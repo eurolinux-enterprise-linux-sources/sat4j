@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.sudoku/META-INF
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.sudoku/META-INF
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:00.114313Z
+2010-12-14T17:43:25.156675Z
 1670448f65b8c69db4a24a2d07acdd96
 2009-02-13T19:11:08.477544Z
 309

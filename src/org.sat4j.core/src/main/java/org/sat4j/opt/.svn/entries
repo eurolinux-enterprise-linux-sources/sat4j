@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.core/src/main/java/org/sat4j/opt
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.core/src/main/java/org/sat4j/opt
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-05-16T13:13:17.120386Z
-457
+2010-04-28T22:10:00.568355Z
+684
 leberre
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:03.280317Z
+2010-12-14T17:43:40.462676Z
 822b863bf2682cdb1b60c4022bf7eee3
 2009-05-16T13:13:17.120386Z
 457
@@ -66,10 +66,10 @@ file
 
 
 
-2010-02-26T07:53:03.281308Z
-54c1e1b8a4c9c26552908b8a9961faf8
-2009-05-16T13:13:17.120386Z
-457
+2010-12-14T17:43:40.462676Z
+60709db1959418a4d59588f1b12a9589
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -92,7 +92,7 @@ leberre
 
 
 
-3819
+3825
 
 MinOneDecorator.java
 file
@@ -100,10 +100,10 @@ file
 
 
 
-2010-02-26T07:53:03.281308Z
-be7c8010cb8e57921768ffb0b470ddaa
-2009-05-16T13:13:17.120386Z
-457
+2010-12-14T17:43:40.463676Z
+a73cdd43422196bc728ae6b80b763838
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -126,7 +126,7 @@ leberre
 
 
 
-3957
+3963
 
 package.html
 file
@@ -134,7 +134,7 @@ file
 
 
 
-2010-02-26T07:53:03.281308Z
+2010-12-14T17:43:40.463676Z
 12d6d0fbd7a0edbedc6cd32b1876365d
 2008-06-10T18:28:02.624411Z
 8

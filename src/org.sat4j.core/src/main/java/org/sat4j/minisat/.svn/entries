@@ -1,15 +1,15 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.core/src/main/java/org/sat4j/minisat
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.core/src/main/java/org/sat4j/minisat
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-07-28T19:47:30.953568Z
-502
-leberre
+2010-04-20T20:40:57.841791Z
+682
+"daniel"
 
 
 
@@ -35,10 +35,10 @@ file
 
 
 
-2010-02-26T07:53:03.519323Z
-91b40ca3fa9922eb3f2f249a4683eb11
-2009-05-16T11:58:51.055803Z
-456
+2010-12-14T17:43:41.963480Z
+399bdf3d251f4d4a73c9034d99cba079
+2009-12-13T14:02:59.253051Z
+589
 leberre
 
 
@@ -61,7 +61,7 @@ leberre
 
 
 
-12704
+13724
 
 constraints
 dir
@@ -84,7 +84,7 @@ file
 
 
 
-2010-02-26T07:53:03.520318Z
+2010-12-14T17:43:41.963480Z
 728992c6ce4a1c550ec6fc43641c7228
 2008-06-10T18:28:02.624411Z
 8

@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.csp.xmlparser/src/main/java/org/sat4j/csp/main
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.csp.xmlparser/src/main/java/org/sat4j/csp/main
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:03.803308Z
+2010-12-14T17:43:44.690124Z
 66336ad51861c21e18710b52aa4ff82f
 2008-06-13T14:07:46.982943Z
 57
@@ -66,7 +66,7 @@ file
 
 
 
-2010-02-26T07:53:03.803308Z
+2010-12-14T17:43:44.690124Z
 bfca7ac65d026e2f2ea8afc3c6bbed98
 2008-06-13T14:07:46.982943Z
 57

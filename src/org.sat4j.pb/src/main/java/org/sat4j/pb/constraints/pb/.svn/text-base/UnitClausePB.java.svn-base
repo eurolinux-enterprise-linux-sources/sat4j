@@ -6,7 +6,7 @@ import org.sat4j.minisat.constraints.cnf.UnitClause;
 import org.sat4j.minisat.core.ILits;
 import org.sat4j.specs.IVecInt;
 
-public class UnitClausePB extends UnitClause implements PBConstr {
+public final class UnitClausePB extends UnitClause implements PBConstr {
 
 	private final ILits voc;
 
@@ -24,13 +24,12 @@ public class UnitClausePB extends UnitClause implements PBConstr {
 		return null;
 	}
 
-	public BigInteger getCoef(int literal) {
+	public BigInteger getCoef(int p) {
 		return BigInteger.ONE;
 	}
 
 	public BigInteger[] getCoefs() {
-		BigInteger[] tmp = { BigInteger.ONE };
-		return tmp;
+		return new BigInteger[] { BigInteger.ONE };
 	}
 
 	public BigInteger getDegree() {
@@ -38,8 +37,7 @@ public class UnitClausePB extends UnitClause implements PBConstr {
 	}
 
 	public int[] getLits() {
-		int[] tmp = { literal };
-		return tmp;
+		return new int[] { literal };
 	}
 
 	public ILits getVocabulary() {

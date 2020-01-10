@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/lib
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/lib
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-02-17T13:29:55.209078Z
-327
+2009-11-21T21:36:49.091983Z
+550
 leberre
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:03.654558Z
+2010-12-14T17:43:44.001214Z
 0f18acf5fa857f9959675e14d901a7ce
 2009-02-17T13:29:55.209078Z
 327
@@ -60,13 +60,47 @@ has-props
 
 188671
 
+commons-logging.jar
+file
+
+
+
+
+2010-12-14T17:43:44.002214Z
+e2c390fe739b2550a218262b28f290ce
+2009-11-21T21:36:49.091983Z
+550
+leberre
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+60841
+
 commons-cli.jar
 file
 
 
 
 
-2010-02-26T07:53:03.655558Z
+2010-12-14T17:43:44.003214Z
 b91e43d736c9013512f049c3cecb9fd7
 2009-02-16T17:40:20.866723Z
 325

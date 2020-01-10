@@ -54,4 +54,9 @@ public class PBMaxClauseCardConstrDataStructure extends
 		return MaxWatchPb.normalizedWatchPbNew(getVocabulary(), mpb);
 	}
 
+	// @Override
+	// public Constr createUnregisteredClause(IVecInt literals) {
+	// return constructLearntClause(literals);
+	// }
+
 }

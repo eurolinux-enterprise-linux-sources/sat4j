@@ -133,19 +133,21 @@ public abstract class AbstractLauncher implements Serializable {
 		}
 		Properties prop = System.getProperties();
 		String[] infoskeys = {
-				"sun.arch.data.model", "java.version", "os.name", "os.version", "os.arch" }; //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$//$NON-NLS-5$
-		for (String key : infoskeys) {
-			log(key + "\t" + prop.getProperty(key)); //$NON-NLS-1$
+				"java.runtime.name", "java.vm.name", "java.vm.version", "java.vm.vendor", "sun.arch.data.model", "java.version", "os.name", "os.version", "os.arch" }; //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$//$NON-NLS-5$
+		for (int i = 0; i < infoskeys.length; i++) {
+			String key = infoskeys[i];
+			log(key
+					+ ((key.length() < 14) ? "\t\t" : "\t") + prop.getProperty(key)); //$NON-NLS-1$
 		}
 		Runtime runtime = Runtime.getRuntime();
-		log("Free memory " + runtime.freeMemory()); //$NON-NLS-1$
-		log("Max memory " + runtime.maxMemory()); //$NON-NLS-1$
-		log("Total memory " + runtime.totalMemory()); //$NON-NLS-1$
-		log("Number of processors " + runtime.availableProcessors()); //$NON-NLS-1$
+		log("Free memory \t\t" + runtime.freeMemory()); //$NON-NLS-1$
+		log("Max memory \t\t" + runtime.maxMemory()); //$NON-NLS-1$
+		log("Total memory \t\t" + runtime.totalMemory()); //$NON-NLS-1$
+		log("Number of processors \t" + runtime.availableProcessors()); //$NON-NLS-1$
 	}
 
 	public void displayLicense() {
-		log("SAT4J: a SATisfiability library for Java (c) 2004-2008 Daniel Le Berre"); //$NON-NLS-1$
+		log("SAT4J: a SATisfiability library for Java (c) 2004-2010 Daniel Le Berre"); //$NON-NLS-1$
 		log("This is free software under the dual EPL/GNU LGPL licenses."); //$NON-NLS-1$
 		log("See www.sat4j.org for details."); //$NON-NLS-1$
 	}
@@ -187,9 +189,15 @@ public abstract class AbstractLauncher implements Serializable {
 		try {
 			displayHeader();
 			solver = configureSolver(args);
-			if (solver == null)
+			if (solver == null) {
+				usage();
 				return;
+			}
 			String instanceName = getInstanceName(args);
+			if (instanceName == null) {
+				usage();
+				return;
+			}
 			beginTime = System.currentTimeMillis();
 			IProblem problem = readProblem(instanceName);
 			try {
@@ -198,17 +206,14 @@ public abstract class AbstractLauncher implements Serializable {
 				log("timeout"); //$NON-NLS-1$
 			}
 		} catch (FileNotFoundException e) {
-			log("FATAL");
-			e.printStackTrace();
+			System.err.println("FATAL " + e.getLocalizedMessage());
 		} catch (IOException e) {
-			log("FATAL");
-			e.printStackTrace();
+			System.err.println("FATAL " + e.getLocalizedMessage());
 		} catch (ContradictionException e) {
 			exitCode = ExitCode.UNSATISFIABLE;
 			log("(trivial inconsistency)"); //$NON-NLS-1$
 		} catch (ParseFormatException e) {
-			log("FATAL");
-			e.printStackTrace();
+			System.err.println("FATAL " + e.getLocalizedMessage());
 		}
 	}
 

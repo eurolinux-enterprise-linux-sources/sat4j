@@ -3,23 +3,22 @@
 %define qualifier 20090825
 
 Name:           sat4j
-Version:        2.1.1
-Release:        1.2%{?dist}
+Version:        2.2.0
+Release:        4.0%{?dist}
 Summary:        A library of SAT solvers written in Java
 
 Group:          Development/Libraries
 License:        EPL or LGPLv2
 URL:            http://www.sat4j.org/
 # Created by sh %{name}-fetch.sh
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        %{name}-%{version}.tar.xz
 Source1:        %{name}-fetch.sh
 Patch0:         %{name}-classpath.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  java-devel >= 1:1.6
+BuildRequires:  java-devel >= 1.5.0
 BuildRequires:  ant
-BuildRequires:  ecj
-Requires:       java >= 1:1.6
+Requires:       java >= 1.5.0
 Requires:       jpackage-utils
 
 BuildArch:      noarch
@@ -57,6 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/org.sat4j*
 
 %changelog
+* Tue Dec 14 2010 Chris Aniszczyk <zx@redhat.com> 2.2.0-4
+- update to 2.2.0 and move to RHEL 6.1
+- removed ecj dependency
+- fixed to run against Java 1.5+ 
+
 * Tue Mar 30 2010 Andrew Overholt <overholt@redhat.com> 2.1.1-1.2
 - Patch out main-in-manifest (akurtakov).
 - Fix license tag.

@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.intervalorders/META-INF
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.intervalorders/META-INF
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:19.473323Z
+2010-12-14T17:45:20.102666Z
 54abff603efec7d15d8160df6bb96609
 2009-07-05T18:43:39.259108Z
 487

@@ -110,8 +110,8 @@ public class GenericOptLauncher extends AbstractOptimizationLauncher {
                         asolver = new WeightedMaxSatDecorator(SolverFactory
                                 .newDefault());
                     } else {
-                        asolver = new MaxSatDecorator(SolverFactory
-                                .newMiniMaxSAT());
+                        asolver = new MaxSatDecorator(org.sat4j.minisat.SolverFactory
+                                .newDefault());
                     }
                 }
                 String timeout = cmd.getOptionValue("t");

@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.pb/src/main/java/org/sat4j/pb/core
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.pb/src/main/java/org/sat4j/pb/core
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-04-20T19:43:03.932516Z
-416
+2009-12-12T20:34:44.273733Z
+577
 leberre
 
 
@@ -32,11 +32,11 @@ file
 
 
 
-2010-02-26T07:53:18.952308Z
-0314c056d387354407b5484d8f045764
-2009-03-07T13:41:48.217419Z
-354
-leberre
+2010-12-14T17:45:18.050933Z
+4bc6d28aa1cbc266032d570345059765
+2009-11-23T16:14:31.906055Z
+562
+parrain
 
 
 
@@ -58,7 +58,7 @@ leberre
 
 
 
-5738
+6209
 
 PBSolverResolution.java
 file
@@ -66,7 +66,7 @@ file
 
 
 
-2010-02-26T07:53:18.953308Z
+2010-12-14T17:45:18.051933Z
 4c08dc87ca23ffcd55b5e2b24fdb4dd3
 2009-02-14T16:47:13.951396Z
 313
@@ -100,7 +100,7 @@ file
 
 
 
-2010-02-26T07:53:18.953308Z
+2010-12-14T17:45:18.051933Z
 c4b8e914e2687b4b1d051f7caec22521
 2009-04-07T22:47:10.469635Z
 377
@@ -134,7 +134,7 @@ file
 
 
 
-2010-02-26T07:53:18.953308Z
+2010-12-14T17:45:18.051933Z
 9c9aa6fbeb422f269775e3dab91844a6
 2009-02-14T16:47:13.951396Z
 313
@@ -162,13 +162,47 @@ leberre
 
 2569
 
+PBSolverCautious.java
+file
+
+
+
+
+2010-12-14T17:45:18.051933Z
+59282af81b4f033b1fda14f11fc309d9
+2009-11-23T16:14:31.906055Z
+562
+parrain
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3272
+
 PBSolverClause.java
 file
 
 
 
 
-2010-02-26T07:53:18.953308Z
+2010-12-14T17:45:18.051933Z
 2ae73bc67bf3c1e19efaea2bd6d71d40
 2009-02-14T16:47:13.951396Z
 313
@@ -196,13 +230,47 @@ leberre
 
 2557
 
+PBSolverResCP.java
+file
+
+
+
+
+2010-12-14T17:45:18.051933Z
+0114b64c5583f6531644b0b86a03a59e
+2009-12-12T20:34:44.273733Z
+577
+leberre
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1764
+
 PBSolverWithImpliedClause.java
 file
 
 
 
 
-2010-02-26T07:53:18.954308Z
+2010-12-14T17:45:18.053933Z
 cf348aabdd6c6dc05ef841a5fbee5f12
 2009-02-14T16:47:13.951396Z
 313
@@ -230,17 +298,51 @@ leberre
 
 3192
 
+PBSolverStats.java
+file
+
+
+
+
+2010-12-14T17:45:18.053933Z
+e231b7728f3ecb040eb2604ba90a71ab
+2009-11-25T14:09:45.824859Z
+566
+parrain
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1055
+
 PBSolver.java
 file
 
 
 
 
-2010-02-26T07:53:18.954308Z
-2c2f36e0dc7cc5cc0b24dc1aea37b1c4
-2009-04-20T19:43:03.932516Z
-416
-leberre
+2010-12-14T17:45:18.053933Z
+7446589ec711eaa96590cfb709fdc06e
+2009-11-23T16:14:31.906055Z
+562
+parrain
 
 
 
@@ -262,5 +364,5 @@ leberre
 
 
 
-3541
+3676
 

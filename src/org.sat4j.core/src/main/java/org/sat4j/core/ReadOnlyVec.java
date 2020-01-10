@@ -40,7 +40,7 @@ import org.sat4j.specs.IVec;
  * @param <T>
  *            the type of the container.
  */
-public class ReadOnlyVec<T> implements IVec<T> {
+public final class ReadOnlyVec<T> implements IVec<T> {
 
 	/**
 	 * 
@@ -114,15 +114,15 @@ public class ReadOnlyVec<T> implements IVec<T> {
 		throw new UnsupportedOperationException();
 	}
 
-	public IVec<T> push(Object elem) {
+	public IVec<T> push(T elem) {
 		throw new UnsupportedOperationException();
 	}
 
-	public void remove(Object elem) {
+	public void remove(T elem) {
 		throw new UnsupportedOperationException();
 	}
 
-	public void set(int i, Object o) {
+	public void set(int i, T o) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -163,4 +163,17 @@ public class ReadOnlyVec<T> implements IVec<T> {
 	public boolean contains(T element) {
 		return vec.contains(element);
 	}
+
+	/**
+	 * @since 2.2
+	 */
+	public int indexOf(T element) {
+		return vec.indexOf(element);
+	}
+
+	@Override
+	public String toString() {
+		return vec.toString();
+	}
+
 }

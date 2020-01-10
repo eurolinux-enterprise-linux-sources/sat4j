@@ -76,6 +76,13 @@ public class PBSolverCP extends PBSolver {
 
 	@Override
 	public void analyze(Constr myconfl, Pair results) {
+		if (someCriteria())
+			analyzeCP(myconfl, results);
+		else
+			super.analyze(myconfl, results);
+	}
+
+	public void analyzeCP(Constr myconfl, Pair results) {
 		int litImplied = trail.last();
 		int currentLevel = voc.getLevel(litImplied);
 		IConflict confl = chooseConflict((PBConstr) myconfl, currentLevel);
@@ -84,6 +91,7 @@ public class PBSolverCP extends PBSolver {
 			PBConstr constraint = (PBConstr) voc.getReason(litImplied);
 			// result of the resolution is in the conflict (confl)
 			confl.resolve(constraint, litImplied, this);
+			updateNumberOfReductions(confl);
 			assert confl.slackConflict().signum() <= 0;
 			// implication trail is reduced
 			if (trail.size() == 1)
@@ -109,6 +117,7 @@ public class PBSolverCP extends PBSolver {
 		assert currentLevel == decisionLevel();
 		undoOne();
 
+		updateNumberOfReducedLearnedConstraints(confl);
 		// necessary informations to build a PB-constraint
 		// are kept from the conflict
 		if ((confl.size() == 0)
@@ -124,6 +133,7 @@ public class PBSolverCP extends PBSolver {
 				.createUnregisteredPseudoBooleanConstraint(confl);
 
 		results.reason = resConstr;
+		getSearchListener().learn(resConstr);
 
 		// the conflict give the highest decision level for the backtrack
 		// (which is less than current level)
@@ -151,4 +161,15 @@ public class PBSolverCP extends PBSolver {
 		conflictVariables.clear();
 		conflictConstraints.clear();
 	}
+
+	boolean someCriteria() {
+		return true;
+	}
+
+	protected void updateNumberOfReductions(IConflict confl) {
+	}
+
+	protected void updateNumberOfReducedLearnedConstraints(IConflict confl) {
+	}
+
 }

@@ -340,4 +340,62 @@ public interface ISolver extends IProblem, Serializable {
 	 * @since 2.1
 	 */
 	void setSearchListener(SearchListener sl);
+
+	/**
+	 * Get the current SearchListener.
+	 * 
+	 * @return a Search Listener.
+	 * @since 2.2
+	 */
+	SearchListener getSearchListener();
+
+	/**
+	 * To know if the solver is in verbose mode (output allowed) or not.
+	 * 
+	 * @return true if the solver is verbose.
+	 * @since 2.2
+	 */
+	boolean isVerbose();
+
+	/**
+	 * Set the verbosity of the solver
+	 * 
+	 * @param value
+	 *            true to allow the solver to output messages on the console,
+	 *            false either.
+	 * @since 2.2
+	 */
+	void setVerbose(boolean value);
+
+	/**
+	 * Set the prefix used to display information.
+	 * 
+	 * @param prefix
+	 *            the prefix to be in front of each line of text
+	 * @since 2.2
+	 */
+	void setLogPrefix(String prefix);
+
+	/**
+	 * 
+	 * @return the string used to prefix the output.
+	 * @since 2.2
+	 */
+	String getLogPrefix();
+
+	/**
+	 * 
+	 * Retrieve an explanation of the inconsistency in terms of assumption
+	 * literals. This is only application when isSatisfiable(assumps) is used.
+	 * Note that !isSatisfiable(assumps)&&assumps.contains(unsatExplanation())
+	 * should hold.
+	 * 
+	 * @return a subset of the assumptions used when calling
+	 *         isSatisfiable(assumps). Will return null if not applicable (i.e.
+	 *         no assumptions used).
+	 * @see #isSatisfiable(IVecInt)
+	 * @see #isSatisfiable(IVecInt, boolean)
+	 * @since 2.2
+	 */
+	IVecInt unsatExplanation();
 }

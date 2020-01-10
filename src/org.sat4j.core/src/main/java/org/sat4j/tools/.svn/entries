@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.core/src/main/java/org/sat4j/tools
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.core/src/main/java/org/sat4j/tools
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-08-12T12:36:02.714268Z
-511
+2010-03-20T22:51:24.370270Z
+659
 leberre
 
 
@@ -26,13 +26,47 @@ leberre
 
 ba638df5-4473-46d1-82f8-c3ae2a17a6e1
 
+ConflictLevelTracing.java
+file
+
+
+
+
+2010-12-14T17:43:40.395685Z
+73e843c15912649acb306208d9bddcc9
+2009-12-13T11:39:26.193351Z
+587
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1617
+
 ExtendedDimacsArrayReader.java
 file
 
 
 
 
-2010-02-26T07:53:03.266308Z
+2010-12-14T17:43:40.396685Z
 d049534f815d4fed4cf989bf354634f1
 2008-06-10T18:28:02.624411Z
 8
@@ -60,13 +94,47 @@ leberre
 
 4722
 
+DecisionTracing.java
+file
+
+
+
+
+2010-12-14T17:43:40.396685Z
+de4d9d2fff67ddab98c3c8b6100be673
+2009-12-13T11:39:26.193351Z
+587
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1711
+
 SingleSolutionDetector.java
 file
 
 
 
 
-2010-02-26T07:53:03.266308Z
+2010-12-14T17:43:40.396685Z
 7238b4dbacd61c79f6cd84dffd4203f2
 2008-08-06T08:44:50.821294Z
 108
@@ -100,7 +168,7 @@ file
 
 
 
-2010-02-26T07:53:03.266308Z
+2010-12-14T17:43:40.397685Z
 20b014f96abe5d5f77679195fb8b68e9
 2009-05-16T11:58:51.055803Z
 456
@@ -128,8 +196,76 @@ leberre
 
 3986
 
+LearnedClauseSizeTracing.java
+file
+
+
+
+
+2010-12-14T17:43:40.397685Z
+c3b9d441905650224798ada0fd78e86d
+2009-12-13T11:39:26.193351Z
+587
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1631
+
 xplain
 dir
+
+DimacsOutputSolver.java
+file
+
+
+
+
+2010-12-14T17:43:40.398685Z
+445adc1380e77737b2a5b7678b6e5a13
+2010-03-20T13:15:32.311192Z
+651
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7461
 
 SolutionCounter.java
 file
@@ -137,7 +273,7 @@ file
 
 
 
-2010-02-26T07:53:03.267308Z
+2010-12-14T17:43:40.398685Z
 e8d07e76b4e556198ccaa10552dd7a55
 2009-05-16T13:13:17.120386Z
 457
@@ -165,16 +301,16 @@ leberre
 
 3677
 
-DimacsOutputSolver.java
+RemiUtils.java
 file
 
 
 
 
-2010-02-26T07:53:03.267308Z
-3c37ca1c3ebfaa1a0e7f8f6457ae3e63
-2009-05-16T13:13:17.120386Z
-457
+2010-12-14T17:43:40.400684Z
+473daed6f4d4bc527ef58b67ead6c626
+2009-12-13T14:02:59.253051Z
+589
 leberre
 
 
@@ -197,7 +333,7 @@ leberre
 
 
 
-6908
+2657
 
 SolverDecorator.java
 file
@@ -205,10 +341,10 @@ file
 
 
 
-2010-02-26T07:53:03.267308Z
-58ee49494ba427da6093a160d9777a6e
-2009-05-16T13:13:17.120386Z
-457
+2010-12-14T17:43:40.399685Z
+86f2cd5c9138a9d942613fe8c065407c
+2010-03-20T13:15:32.311192Z
+651
 leberre
 
 
@@ -231,18 +367,18 @@ leberre
 
 
 
-8440
+9036
 
-RemiUtils.java
+TextOutputTracing.java
 file
 
 
 
 
-2010-02-26T07:53:03.267308Z
-462c8e443e15df00578f52d05406ce51
-2008-06-10T18:28:02.624411Z
-8
+2010-12-14T17:43:40.399685Z
+bcb53510c6710ae3b73e4c5001b40d7a
+2009-10-18T13:57:34.155410Z
+520
 leberre
 
 
@@ -265,41 +401,7 @@ leberre
 
 
 
-2853
-
-package.html
-file
-
-
-
-
-2010-02-26T07:53:03.268307Z
-a0a2cf45ff1c3bfc51bfb7b7f114cc43
-2008-06-10T18:28:02.624411Z
-8
-leberre
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-53
+3458
 
 OptToSatAdapter.java
 file
@@ -307,7 +409,7 @@ file
 
 
 
-2010-02-26T07:53:03.268307Z
+2010-12-14T17:43:40.401684Z
 c3819b5e6a6f4a09803e674bf096bca7
 2009-05-12T13:11:29.407658Z
 432
@@ -335,16 +437,16 @@ leberre
 
 3866
 
-Minimal4InclusionModel.java
+package.html
 file
 
 
 
 
-2010-02-26T07:53:03.268307Z
-e1629e75904822a3058a905d23819e59
-2009-05-15T18:17:52.126925Z
-444
+2010-12-14T17:43:40.400684Z
+a0a2cf45ff1c3bfc51bfb7b7f114cc43
+2008-06-10T18:28:02.624411Z
+8
 leberre
 
 
@@ -367,7 +469,7 @@ leberre
 
 
 
-3306
+53
 
 Minimal4CardinalityModel.java
 file
@@ -375,7 +477,7 @@ file
 
 
 
-2010-02-26T07:53:03.268307Z
+2010-12-14T17:43:40.401684Z
 6a0bd775ddaefd33c5f0d8c28f1d2cf2
 2009-01-16T20:47:48.419004Z
 273
@@ -403,16 +505,16 @@ leberre
 
 3259
 
-DimacsStringSolver.java
+Minimal4InclusionModel.java
 file
 
 
 
 
-2010-02-26T07:53:03.269308Z
-5f99026af3484858ef12c2bb5599e9a8
-2009-06-16T15:53:06.131185Z
-470
+2010-12-14T17:43:40.401684Z
+e1629e75904822a3058a905d23819e59
+2009-05-15T18:17:52.126925Z
+444
 leberre
 
 
@@ -435,7 +537,41 @@ leberre
 
 
 
-7773
+3306
+
+DimacsStringSolver.java
+file
+
+
+
+
+2010-12-14T17:43:40.402684Z
+9dca229bbeb6b659e6207d2bda8857b6
+2010-03-20T13:15:32.311192Z
+651
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8326
 
 DimacsArrayReader.java
 file
@@ -443,7 +579,7 @@ file
 
 
 
-2010-02-26T07:53:03.269308Z
+2010-12-14T17:43:40.402684Z
 7e735bc36baccfcabfcd8d3de6530bb1
 2008-06-10T18:28:02.624411Z
 8
@@ -471,13 +607,47 @@ leberre
 
 3909
 
+DotSearchTracing.java
+file
+
+
+
+
+2010-12-14T17:43:40.403684Z
+6dbc8f2c39d0a8a83dcaf573f791f885
+2009-12-04T22:08:52.392219Z
+572
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6036
+
 ConstrGroup.java
 file
 
 
 
 
-2010-02-26T07:53:03.269308Z
+2010-12-14T17:43:40.404684Z
 0356b46ebfa8b024599f61103caac46c
 2008-06-10T18:28:02.624411Z
 8
@@ -511,10 +681,10 @@ file
 
 
 
-2010-02-26T07:53:03.269308Z
-01584df6940c421100cae0afa6f4b4aa
-2009-05-16T11:58:51.055803Z
-456
+2010-12-14T17:43:40.404684Z
+941fa04d18f0ff0d771a13d5c0636657
+2010-01-27T21:49:23.402204Z
+627
 leberre
 
 
@@ -537,5 +707,39 @@ leberre
 
 
 
-9369
+13980
+
+DecisionLevelTracing.java
+file
+
+
+
+
+2010-12-14T17:43:40.405684Z
+daf455da039d5c71f7b83fb43b58b169
+2009-12-13T11:39:26.193351Z
+587
+leberre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1625
 

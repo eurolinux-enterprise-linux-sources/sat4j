@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.maxsat/.settings
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.maxsat/.settings
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:03.731308Z
+2010-12-14T17:43:44.315173Z
 b6b394527b9bfe41f17c20fb8a4bb0df
 2008-08-06T15:17:08.584624Z
 119

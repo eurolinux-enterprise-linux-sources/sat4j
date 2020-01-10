@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.core/src/main/java/org/sat4j/tools/xplain
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.core/src/main/java/org/sat4j/tools/xplain
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-08-12T12:36:02.714268Z
-511
+2010-03-20T22:51:24.370270Z
+659
 leberre
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:03.244318Z
+2010-12-14T17:43:40.143718Z
 68b38286b81094144a67bbc5a1eb2c7c
 2009-05-16T11:58:51.055803Z
 456
@@ -66,10 +66,10 @@ file
 
 
 
-2010-02-26T07:53:03.245329Z
-5a988efce7c26d240e23ce75044fd80f
-2009-05-16T11:58:51.055803Z
-456
+2010-12-14T17:43:40.143718Z
+396c75a2c4f6b60348d69c81a2f2e549
+2010-03-20T22:51:24.370270Z
+659
 leberre
 
 
@@ -92,7 +92,7 @@ leberre
 
 
 
-4191
+4026
 
 ReplayXplainStrategy.java
 file
@@ -100,10 +100,10 @@ file
 
 
 
-2010-02-26T07:53:03.245329Z
-5019b3759df0c2e36456a46ed8b8fa0d
-2009-05-16T11:58:51.055803Z
-456
+2010-12-14T17:43:40.144718Z
+64951469ba8502aa7d441102d6255b3d
+2010-03-20T22:51:24.370270Z
+659
 leberre
 
 
@@ -126,7 +126,7 @@ leberre
 
 
 
-4053
+3887
 
 Xplain.java
 file
@@ -134,10 +134,10 @@ file
 
 
 
-2010-02-26T07:53:03.245329Z
-cb824edc125c85a98983cdababe76951
-2009-08-12T12:36:02.714268Z
-511
+2010-12-14T17:43:40.144718Z
+c98d4462bff019ede9a69ac2f02fb6bd
+2010-01-23T14:04:09.220422Z
+619
 leberre
 
 
@@ -160,7 +160,7 @@ leberre
 
 
 
-7498
+7548
 
 XplainStrategy.java
 file
@@ -168,7 +168,7 @@ file
 
 
 
-2010-02-26T07:53:03.245329Z
+2010-12-14T17:43:40.144718Z
 1383d89cb5fac538ef22edc1c992cd5f
 2009-05-16T11:58:51.055803Z
 456

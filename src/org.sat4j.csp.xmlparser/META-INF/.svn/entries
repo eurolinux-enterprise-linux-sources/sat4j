@@ -1,8 +1,8 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.csp.xmlparser/META-INF
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.csp.xmlparser/META-INF
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2010-02-26T07:53:03.738308Z
+2010-12-14T17:43:44.330171Z
 8f9f8bbf41eb3466521dc762f5d1fe47
 2008-06-11T05:59:59.828886Z
 36

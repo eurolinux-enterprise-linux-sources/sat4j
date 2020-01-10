@@ -36,7 +36,7 @@ import org.sat4j.specs.IteratorInt;
  * @author daniel
  * 
  */
-public class ReadOnlyVecInt implements IVecInt {
+public final class ReadOnlyVecInt implements IVecInt {
 
 	/**
 	 * 
@@ -170,6 +170,15 @@ public class ReadOnlyVecInt implements IVecInt {
 	 */
 	public int[] toArray() {
 		throw new UnsupportedOperationException();
+	}
+
+	public int indexOf(int e) {
+		return vec.indexOf(e);
+	}
+
+	@Override
+	public String toString() {
+		return vec.toString();
 	}
 
 }

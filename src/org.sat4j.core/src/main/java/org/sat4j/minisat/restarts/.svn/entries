@@ -1,14 +1,14 @@
 10
 
 dir
-639
-svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/2_1_1/org.sat4j.core/src/main/java/org/sat4j/minisat/restarts
+828
+svn://svn.forge.objectweb.org/svnroot/sat4j/maven/tags/ECLIPSE_3_6/org.sat4j.core/src/main/java/org/sat4j/minisat/restarts
 svn://svn.forge.objectweb.org/svnroot/sat4j
 
 
 
-2009-06-16T15:53:06.131185Z
-470
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2010-02-26T07:53:03.425308Z
-cfe3fe6ac17295b0bfea7f4f4f21978c
-2009-06-16T15:53:06.131185Z
-470
+2010-12-14T17:43:41.359559Z
+2a204dedfe7217aa9bff83add6b05eeb
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -58,7 +58,7 @@ leberre
 
 
 
-3539
+3545
 
 NoRestarts.java
 file
@@ -66,10 +66,10 @@ file
 
 
 
-2010-02-26T07:53:03.425308Z
-ad2ad8128370c91cc5c427785c5f8901
-2008-08-06T15:15:36.730713Z
-117
+2010-12-14T17:43:41.359559Z
+6e6fd36120e02a065ae29d0bde360ff0
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -92,7 +92,7 @@ leberre
 
 
 
-1979
+2012
 
 MiniSATRestarts.java
 file
@@ -100,10 +100,10 @@ file
 
 
 
-2010-02-26T07:53:03.426308Z
-af04d8aae64e6d8dd185aa80854dde03
-2009-01-16T20:47:48.419004Z
-273
+2010-12-14T17:43:41.359559Z
+786f679a08498f5186162461208d4238
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -126,7 +126,7 @@ leberre
 
 
 
-2330
+2293
 
 ArminRestarts.java
 file
@@ -134,10 +134,10 @@ file
 
 
 
-2010-02-26T07:53:03.426308Z
-ed8357654fed851adf1602eaa6a3ab77
-2009-01-16T20:47:48.419004Z
-273
+2010-12-14T17:43:41.359559Z
+f453263c1fd129f3c01c66432a6237ff
+2009-12-04T22:08:52.392219Z
+572
 leberre
 
 
@@ -160,7 +160,7 @@ leberre
 
 
 
-2689
+2589
 
 package.html
 file
@@ -168,7 +168,7 @@ file
 
 
 
-2010-02-26T07:53:03.426308Z
+2010-12-14T17:43:41.360559Z
 12d5e98786b2e339a2b8c5ecbf301231
 2008-06-10T18:28:02.624411Z
 8

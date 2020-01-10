@@ -25,7 +25,7 @@
  * See www.minisat.se for the original solver in C++.
  * 
  *******************************************************************************/
-package org.sat4j.minisat.core;
+package org.sat4j.tools;
 
 import java.util.Map;
 
@@ -37,9 +37,9 @@ import org.sat4j.specs.SearchListener;
  * Debugging Search Listener allowing to follow the search in a textual way.
  * 
  * @author daniel
- * 
+ * @since 2.2
  */
-public class TextOutputListener<T> implements SearchListener {
+public class TextOutputTracing<T> implements SearchListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class TextOutputListener<T> implements SearchListener {
 	/**
 	 * @since 2.1
 	 */
-	public TextOutputListener(Map<Integer, T> mapping) {
+	public TextOutputTracing(Map<Integer, T> mapping) {
 		this.mapping = mapping;
 	}
 
@@ -99,7 +99,7 @@ public class TextOutputListener<T> implements SearchListener {
 	/**
 	 * @since 2.1
 	 */
-	public void conflictFound(IConstr confl) {
+	public void conflictFound(IConstr confl, int dlevel, int trailLevel) {
 		System.out.println("conflict ");
 	}
 
@@ -124,6 +124,17 @@ public class TextOutputListener<T> implements SearchListener {
 	 * @since 2.1
 	 */
 	public void end(Lbool result) {
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public void restarting() {
+		System.out.println("restarting ");
+	}
+
+	public void backjump(int backjumpLevel) {
+		System.out.println("backjumping to decision level " + backjumpLevel);
 	}
 
 }

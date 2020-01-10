@@ -29,7 +29,6 @@ package org.sat4j.tools;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.util.Map;
 
 import org.sat4j.specs.ContradictionException;
@@ -47,8 +46,7 @@ import org.sat4j.specs.TimeoutException;
  * 
  * @author leberre
  */
-public abstract class SolverDecorator<T extends ISolver> implements ISolver,
-		Serializable {
+public abstract class SolverDecorator<T extends ISolver> implements ISolver {
 
 	/**
 	 * 
@@ -165,6 +163,11 @@ public abstract class SolverDecorator<T extends ISolver> implements ISolver,
 	 */
 	public String toString(String prefix) {
 		return solver.toString(prefix);
+	}
+
+	@Override
+	public String toString() {
+		return solver.toString();
 	}
 
 	/*
@@ -381,6 +384,45 @@ public abstract class SolverDecorator<T extends ISolver> implements ISolver,
 	 */
 	public boolean removeSubsumedConstr(IConstr c) {
 		return solver.removeSubsumedConstr(c);
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public SearchListener getSearchListener() {
+		return solver.getSearchListener();
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public boolean isVerbose() {
+		return solver.isVerbose();
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public void setVerbose(boolean value) {
+		solver.setVerbose(value);
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public void setLogPrefix(String prefix) {
+		solver.setLogPrefix(prefix);
+	}
+
+	/**
+	 * @since 2.2
+	 */
+	public String getLogPrefix() {
+		return solver.getLogPrefix();
+	}
+
+	public IVecInt unsatExplanation() {
+		return solver.unsatExplanation();
 	}
 
 }

@@ -59,7 +59,10 @@ public class ImplicationAnd<T, C> {
 		IVecInt tmpClause = new VecInt();
 		clause.copyTo(tmpClause);
 		tmpClause.push(helper.getIntValue(thing));
-		toName.push(helper.solver.addClause(tmpClause));
+		IConstr constr = helper.solver.addClause(tmpClause);
+		if (constr != null) {
+			toName.push(constr);
+		}
 		return this;
 	}
 
@@ -75,7 +78,10 @@ public class ImplicationAnd<T, C> {
 		IVecInt tmpClause = new VecInt();
 		clause.copyTo(tmpClause);
 		tmpClause.push(-helper.getIntValue(thing));
-		toName.push(helper.solver.addClause(tmpClause));
+		IConstr constr = helper.solver.addClause(tmpClause);
+		if (constr != null) {
+			toName.push(constr);
+		}
 		return this;
 	}
 
